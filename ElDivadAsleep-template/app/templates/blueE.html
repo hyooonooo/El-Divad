@@ -1,0 +1,44 @@
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>problem</title>
+    <meta http-equiv='refresh' content='3;url=http://192.168.0.35:8000/ending'>
+    <script type="text/javascript">
+    $(document).ready(function(e) {
+    var refresher = setInterval("update_content();",3000); // 30 seconds
+        })
+
+        function update_content(){
+
+            $.ajax({
+            type: "GET",
+            url: "http://192.168.0.35:8000/ending", // post it back to itself - use relative path or consistent www. or non-www. to avoid cross domain security issues
+            cache: false, // be sure not to cache results
+            })
+            .done(function( page_html ) {
+                alert("LOADED");
+            var newDoc = document.open("text/html", "replace");
+            newDoc.write(page_html);
+            newDoc.close();
+
+            });   
+
+        }
+            function disableBack() { window.history.forward(); }
+            setTimeout("disableBack()", 0);
+            window.onunload = function () { null };
+    </script>
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+
+
+</head>
+<div class="blueE fade-in-box" >
+    </div>
+</div>
+
+</body>
+
+</html>
